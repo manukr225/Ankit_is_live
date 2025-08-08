@@ -19,40 +19,44 @@
       margin-bottom: 10px;
     }
 
+    p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
     .video-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
+      gap: 30px;
     }
 
     .video-frame {
       width: 320px;
-      height: 180px;
       border: 2px solid #00ffff;
       border-radius: 10px;
-      overflow: hidden;
-      position: relative;
+      padding: 10px;
+      background-color: #1e1e1e;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .video-title {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #00ffff;
     }
 
     video {
       width: 100%;
-      height: 100%;
-      border: none;
+      height: 180px;
+      border-radius: 6px;
       background: #000;
     }
 
     .fallback {
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      right: 5px;
+      margin-top: 8px;
       font-size: 12px;
       color: #ff6666;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 4px;
-      border-radius: 4px;
       display: none;
     }
 
@@ -65,7 +69,6 @@
     @media (max-width: 600px) {
       .video-frame {
         width: 100%;
-        height: auto;
       }
     }
   </style>
@@ -78,30 +81,35 @@
   <div class="video-container">
     <!-- Video 1 -->
     <div class="video-frame">
+      <h3 class="video-title">🎬 Elio 2025 - Hindi Dubbed</h3>
       <video id="video1" controls></video>
       <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
     </div>
 
     <!-- Video 2 -->
     <div class="video-frame">
+      <h3 class="video-title">🎮 42ABET - Gameplay Stream</h3>
       <video id="video2" controls></video>
       <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
     </div>
 
     <!-- Video 3 -->
     <div class="video-frame">
+      <h3 class="video-title">🎮 42ABET - Part 2</h3>
       <video id="video3" controls></video>
       <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
     </div>
 
     <!-- Video 4 -->
     <div class="video-frame">
+      <h3 class="video-title">📺 Unknown Stream</h3>
       <video id="video4" controls></video>
       <div class="fallback" id="fallback4">⚠️ Browser doesn't support HLS</div>
     </div>
 
     <!-- Video 5 -->
     <div class="video-frame">
+      <h3 class="video-title">🎮 42ABET - Finale</h3>
       <video id="video5" controls></video>
       <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
     </div>
@@ -130,12 +138,4 @@
         hls.loadSource(src);
         hls.attachMedia(video);
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-      } else {
-        fallback.style.display = 'block';
-      }
-    });
-  </script>
-
-</body>
-</html>
+        video.src
