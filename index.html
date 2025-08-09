@@ -114,7 +114,7 @@
 
   <!-- Video 1 -->
   <div class="video-frame" data-title="Video 1">
-    <div class="video-title">Video 1</div>
+    <div class="video-title">Animal (2023)</div>
     <div class="video-wrapper">
       <video id="video1" controls></video>
       <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
@@ -123,7 +123,7 @@
 
   <!-- Video 2 -->
   <div class="video-frame" data-title="My Video Title">
-    <div class="video-title">My Video Title</div>
+    <div class="video-title">A.R.M (2024) hindi </div>
     <div class="video-wrapper">
       <video id="video2" controls>
         <source src="https://anchovyjem.rest/cv/v/8c/2f/8c2f7cf04642fac446ba7ede1aa82f5e47ccf9e0_x264.mp4" type="video/mp4">
@@ -135,7 +135,7 @@
 
   <!-- Video 3 -->
   <div class="video-frame" data-title="Video 3">
-    <div class="video-title">Video 3</div>
+    <div class="video-title">Dhadak 2</div>
     <div class="video-wrapper">
       <video id="video3" controls></video>
       <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
@@ -143,7 +143,7 @@
   </div>
 
   <!-- Video 4 -->
-  <div class="video-frame" data-title="Video 4">
+  <div class="video-frame" data-title="Saiyaara">
     <div class="video-title">Video 4</div>
     <div class="video-wrapper">
       <video id="video4" controls></video>
@@ -153,7 +153,7 @@
 
   <!-- Video 5 -->
   <div class="video-frame" data-title="Video 5">
-    <div class="video-title">Video 5</div>
+    <div class="video-title">Aankhon Ki Gustaakhiyan (Hindi)</div>
     <div class="video-wrapper">
       <video id="video5" controls></video>
       <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
@@ -173,11 +173,15 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
   const sources = [
-    "https://cdn30092.lefig371jos.com/stream2/i-arch-400/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EROhWTEZlaOJTW10EVFVjTHlFMOdUWx0UbRRzTUl0daR1Z4p1VWp2TEtWP:1754664230:152.58.188.238:54fd39dc950b0b9af8f9b0a620a22f0d05f1c6f3d13fc0da2102df33c8d88c39/1080/index.m3u8",
-    "https://cdn30091.lefig371jos.com/stream2/i-cdn-0/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleKhmWXlVeaRUU31kaaxmWqlUeZRFbrl1VVRjWXZVaNpmVq90RaxmWE1UP:1754664532:152.58.188.238:8698d5449091bd86a7b029f29489d9f63d6c0dd4e44c2ef3f306e459a57d0846/1080/index.m3u8",
-    "https://cdn30091.lefig371jos.com/stream2/i-cdn-0/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT250VGtmTUZUbNpWWw8ERklmTEN2MZJTS3llMalmWtVleadkWq5kMStWWUFUP:1754664594:152.58.188.238:4ba64a6b9c173c098aff67456f1a0c6ae59509829f561ab71620199256a82a86/1080/index.m3u8",
-    "https://cdn30092.lefig371jos.com/stream2/i-arch-400/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21ERohWTE1UMa1WWz0ERChWWUt2Ma1WV65kanh3TH5UbNRkQt5kaO1mWH1UP:1754664647:152.58.188.238:9a8ffc718b8628286454eb966eaf328054bf57d250524ea37b369ba66f7e157e/1080/index.m3u8",
-    "https://cdn30092.lefig371jos.com/stream2/i-arch-400/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVG1WTHlVeapWSyoFRFBTTyY0aNpXTwolajJjTtlVNOdUVyolaOxmTXlUP:1754664696:152.58.188.238:76f233f1fe565b2cb00d022092ca8bce8042b192e8e957e0ce7e431786c5b7a3/1080/index.m3u8"
+    "https://cdn30092.lefig371jos.com/stream2/i-arch-400/1bd0fcb134d5e72d5e59ad8ea0833fb2/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2llMZNTWUV0dPRUSykFVrBTTUpUbZpXT550VKtmWE5EaORUWzoFRZpXWUlUP:1754755752:117.231.228.44:24571e8af9a55fe987d66a9c0b00e4889c64f9a52c949c6d11409551681b7bbe/480/index.m3u8",
+
+    "https://cdn30093.lefig371jos.com/stream2/i-arch-400/728e1089cdfb1bca84397901217981a8/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25UbFNTW6FUNNdkUt50RK12TUdGMZRVU04kea1WT6pVaaRlQsllMRNTTtlUP:1754762725:152.59.146.126:58f1f888e05292d7e48d4592040630a932b5ee543d65c711f5363fb0ad15736e/720/index.m3u8",
+
+    "https://cdn30093.lefig371jos.com/stream2/i-arch-400/18e1d1d278b136c6a518074d07a63ccf/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2p1RO1mWUVUMZpWS3lleWlmTyoUaNp3Zw4kejNTTHpFaNRkUp9EVClWTHlVP:1754795299:152.59.146.126:a2099ec87eaa43031b6ccb47166b7d9239866c7554db9ef95e4ad63a8b86cf98/1080/index.m3u8",
+
+    "https://cdn30093.lefig371jos.com/stream2/i-arch-400/ffb5fc98109efed785dceee1c06f6c16/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25keJFjT6dmMPRUUw8EVOlWTUtWMPdlUt9EVshWTUdGMNp3Z65UbWt2TUtWP:1754795413:103.48.21.44:316cf377b53544735fb53037a0ac5a19211e0042d66b7d4dc63694c5c1a9a781/1080/index.m3u8",
+
+    "https://cdn30093.lefig371jos.com/stream2/i-arch-400/d7cc7509fa6848915881a1c55e0f6499/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVNJTTUFFMZpWS0oFRSpmTEpFaa1mUoplaVBTTHVFNORUUw0kMJRTW6tWP:1754795522:152.59.146.126:8dca0bb3ef199edef86665871ad828ffeb112442abc41bd5bfcf64c3e21e9228/1080/index.m3u8"
   ];
 
   sources.forEach((src, index) => {
