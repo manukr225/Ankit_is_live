@@ -1,182 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StreamSeva - HLS Video Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* ... (Your styles remain unchanged for brevity) ... */
     body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: white;
       text-align: center;
     }
-    h1 { color: #00ffff; margin-bottom: 10px;}
-    p { color: #ccc; margin-bottom: 30px;}
-    input[type="text"], input[type="email"], textarea {
-      width: 90%; max-width: 400px; padding: 10px; margin: 10px auto;
-      border: none; border-radius: 5px;
+
+    h1, h2 {
+      color: #00f9ff;
     }
+
+    input, textarea {
+      width: 300px;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 5px;
+      border: none;
+      display: block;
+    }
+
     button {
       padding: 10px 20px;
-      background-color: #00ffff; color: #000; border: none; border-radius: 5px;
-      cursor: pointer; margin-top: 10px;
+      background-color: #00f9ff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: black;
+      margin-top: 10px;
     }
-    .video-container {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;
+
+    .video-card {
+      display: inline-block;
+      margin: 15px;
+      border: 2px solid #00f9ff;
+      border-radius: 5px;
+      padding: 10px;
     }
-    .video-frame {
-      width: 320px; border: 2px solid #00ffff; border-radius: 10px; overflow: hidden;
-      background-color: #000; padding: 10px; box-sizing: border-box; position: relative;
-    }
-    .video-title {
-      font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #00ffff; text-align: center;
-    }
-    .video-wrapper {
-      position: relative; width: 100%; padding-top: 56.25%; background-color: #000;
-    }
+
     video {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      border: none; background: #000; border-radius: 6px;
+      width: 300px;
+      height: auto;
     }
-    .fallback {
-      position: absolute; bottom: 5px; left: 5px; right: 5px; font-size: 12px;
-      color: #ff6666; background: rgba(0, 0, 0, 0.6); padding: 4px; border-radius: 4px; display: none;
+
+    form {
+      margin-top: 20px;
     }
-    .download-btn {
-      display: block; margin: 10px auto 0; font-size: 14px; color: #00ffff; text-decoration: underline;
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: gray;
     }
-    footer { margin-top: 50px; font-size: 14px; color: #aaa;}
-    @media (max-width: 600px) { .video-frame { width: 100%; } }
+
+    @media (max-width: 600px) {
+      video {
+        width: 100%;
+      }
+
+      input, textarea {
+        width: 90%;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>🎬 StreamSeva - HLS Video Hub</h1>
+  <h1>📺 StreamSeva - HLS Video Hub</h1>
   <p>Enjoy streaming high-quality HLS videos</p>
 
-  <input type="text" id="searchInput" placeholder="Search movie title..." onkeyup="filterVideos()">
-
-  <div class="video-container" id="videoContainer">
-    <div class="video-frame" data-title="Video 1">
-      <div class="video-title">Video 1</div>
-      <div class="video-wrapper">
-        <video id="video1" controls></video>
-        <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
-      </div>
-      <a class="download-btn" href="https://your-hls-url1.m3u8" download>Download</a>
-    </div>
-    <div class="video-frame" data-title="My Video Title">
-      <div class="video-title">Animal 2024</div>
-      <div class="video-wrapper">
-        <video id="video2" controls>
-          <source src="https://anchovyjem.rest/cv/v/8c/2f/8c2f7cf04642fac446ba7ede1aa82f5e47ccf9e0_x264.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
-      </div>
-      <a class="download-btn" href="https://anchovyjem.rest/cv/v/8c/2f/8c2f7cf04642fac446ba7ede1aa82f5e47ccf9e0_x264.mp4" download>Download</a>
-    </div>
-    <div class="video-frame" data-title="Video 3">
-      <div class="video-title">Video 3</div>
-      <div class="video-wrapper">
-        <video id="video3" controls></video>
-        <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
-      </div>
-      <a class="download-btn" href="https://your-hls-url3.m3u8" download>Download</a>
-    </div>
-    <div class="video-frame" data-title="Video 4">
-      <div class="video-title">Video 4</div>
-      <div class="video-wrapper">
-        <video id="video4" controls></video>
-        <div class="fallback" id="fallback4">⚠️ Browser doesn't support HLS</div>
-      </div>
-      <a class="download-btn" href="https://your-hls-url4.m3u8" download>Download</a>
-    </div>
-    <div class="video-frame" data-title="Video 5">
-      <div class="video-title">Video 5</div>
-      <div class="video-wrapper">
-        <video id="video5" controls></video>
-        <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
-      </div>
-      <a class="download-btn" href="https://your-hls-url5.m3u8" download>Download</a>
-    </div>
+  <!-- Video Section -->
+  <div class="video-card">
+    <h3>Video One</h3>
+    <video controls>
+      <source src="https://cdn30092.lefig371jos.com/stream2/i-arch-400/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EROhWTEZlaOJTW10EVFVjTHlFMOdUWx0UbRRzTUl0daR1Z4p1VWp2TEtWP:1754664230:152.58.188.238:54fd39dc950b0b9af8f9b0a620a22f0d05f1c6f3d13fc0da2102df33c8d88c39/1080/index.m3u8" type="application/x-mpegURL">
+      Your browser does not support HLS streaming.
+    </video>
+    <br>
+    <a href="https://cdn30092.lefig371jos.com/stream2/i-arch-400/ff6e97ee59e04a8bb20f5745d6c70d19/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EROhWTEZlaOJTW10EVFVjTHlFMOdUWx0UbRRzTUl0daR1Z4p1VWp2TEtWP:1754664230:152.58.188.238:54fd39dc950b0b9af8f9b0a620a22f0d05f1c6f3d13fc0da2102df33c8d88c39/1080/index.m3u8" download target="_blank">Download</a>
   </div>
 
-  <!-- Contact Us -->
+  <!-- Contact Form -->
   <h2>📩 Contact Us</h2>
-  <form id="contactForm">
-    <input type="email" placeholder="Your email" required><br>
-    <textarea rows="4" placeholder="Your message" required></textarea><br>
+  <form action="https://formspree.io/f/mayrdkeg" method="POST">
+    <input type="email" name="email" placeholder="Your email" required>
+    <textarea name="message" placeholder="Your message" rows="4" required></textarea>
     <button type="submit">Send Message</button>
   </form>
 
-  <!-- Movie Request -->
-  <h2>🎥 Request a Movie</h2>
-  <form id="movieRequestForm">
-    <input type="text" placeholder="Movie name" required><br>
-    <textarea rows="3" placeholder="Why do you want it?" required></textarea><br>
+  <!-- Movie Request Form -->
+  <h2>🎬 Request a Movie</h2>
+  <form action="https://formspree.io/f/mayrdkeg" method="POST">
+    <input type="text" name="movie_name" placeholder="Movie name" required>
+    <textarea name="reason" placeholder="Why do you want it?" rows="4" required></textarea>
+    <input type="hidden" name="_replyto" value="voemanu225@gmail.com">
     <button type="submit">Request Movie</button>
   </form>
 
   <footer>
-    © 2025 StreamSeva. All rights reserved.
+    <p>© 2025 StreamSeva. All rights reserved.</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script>
-    // Use valid HLS URLs!
-    const sources = [
-      "https://cdn30092.lefig371jos.com/stream2/i-arch-400/1bd0fcb134d5e72d5e59ad8ea0833fb2/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2llMZNTWUV0dPRUSykFVrBTTUpUbZpXT550VKtmWE5EaORUWzoFRZpXWUlUP:1754755752:117.231.228.44:24571e8af9a55fe987d66a9c0b00e4889c64f9a52c949c6d11409551681b7bbe/720/index.m3u8",
-      "", // video2 uses MP4, leave blank
-      "https://your-hls-url3.m3u8",
-      "https://your-hls-url4.m3u8",
-      "https://your-hls-url5.m3u8"
-    ];
-
-    sources.forEach((src, index) => {
-      const video = document.getElementById(`video${index + 1}`);
-      const fallback = document.getElementById(`fallback${index + 1}`);
-      if (!video || !fallback || !src) return;
-
-      if (window.Hls && Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(src);
-        hls.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-      } else {
-        fallback.style.display = 'block';
-      }
-    });
-
-    // SEARCH FUNCTION: Fully implemented
-    function filterVideos() {
-      const input = document.getElementById("searchInput");
-      const filter = input.value.toLowerCase();
-      const videos = document.querySelectorAll(".video-frame");
-      videos.forEach(frame => {
-        const title = frame.getAttribute("data-title").toLowerCase();
-        if (title.includes(filter)) {
-          frame.style.display = "";
-        } else {
-          frame.style.display = "none";
-        }
-      });
-    }
-
-    // PREVENT FORM SUBMIT RELOAD
-    document.getElementById('contactForm').onsubmit = function(e) {
-      e.preventDefault();
-      alert('Message sent! (Demo only)');
-    };
-    document.getElementById('movieRequestForm').onsubmit = function(e) {
-      e.preventDefault();
-      alert('Request submitted! (Demo only)');
-    };
-  </script>
 </body>
 </html>
