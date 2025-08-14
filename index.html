@@ -144,22 +144,39 @@
   </div>
 
   <!-- Video 2 -->
-  <div class="video-frame" data-title="Oho Enthan Baby 2025 Hindi">
-    <div class="video-title">Oho Enthan Baby 2025 Hind </div>
-    <div class="video-wrapper">
-      <video id="video2" controls>
-        <source src="https://anchovyjem.rest/cv/v/8c/2f/8c2f7cf04642fac446ba7ede1aa82f5e47ccf9e0_x264.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
-    </div>
-<a href="https://vegamovies.ly/41691-squid-game-season-3-2025-hindi-dubbed-webdl-1080p-720p-480p.html" 
-       class="download-button" 
-       download 
-       target="_blank">
-      ⬇️ Download Video
-    </a>
+<div class="video-frame" data-title="Thunderbolts">
+  <div class="video-title">Thunderbolts</div>
+  <div class="video-wrapper">
+    <video id="video3" controls width="100%" height="auto"></video>
+    <div class="fallback" id="fallback3" style="display: none;">⚠️ Browser doesn't support HLS</div>
   </div>
+  
+  <a href="https://vegamovies.ly/40317-thunderbolts-2025-hindi-audio-pre-hd-720p-480p-1080p.html" 
+     class="download-button" 
+     download 
+     target="_blank">
+    ⬇️ Watch & Download Video
+  </a>
+</div>
+
+<!-- HLS.js script -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const video = document.getElementById('video3');
+    const videoSrc = 'https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kMSlWW6d2MN1WUw4keVFTWUF1dNp3Y390RFVjWEtWMOpWS5p1VNRTTtVUP:1755150827:152.58.133.68:e80f073d3f14d7619dfa03f3357144e47dbee1f51cd8cd1a18d598ed8c0099f5/1080/index.m3u8';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    } else {
+      document.getElementById('fallback3').style.display = 'block';
+    }
+  });
+</script>
 
 <!-- Video 3 -->
 <div class="video-frame" data-title="final destination 2025">
