@@ -128,42 +128,34 @@
 <div class="video-container" id="videoContainer">
 
   <!-- Video 1 -->
-  <div class="video-frame" data-title="kingdom" data-src="https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kerBjWUJUaORUQ4plardnTq50aaRkQq90RaxWTUt2dOR0Y4llaCtmWEtWP:1755151796:152.58.133.68:c999887693cc788c199456d5d36633ebb9d045f962c4268e00314502a0b2c5e3/1080/index.m3u8">
+  <div class="video-frame" data-title="kingdom" data-src="https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGT.../1080/index.m3u8">
     <div class="video-title">kingdom</div>
     <div class="video-wrapper">
       <video id="video1" controls></video>
       <div class="fallback">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" class="download-button" download target="_blank">
-      ⬇️ Download Video
-    </a>
+    <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" class="download-button" download target="_blank">⬇️ Download Video</a>
   </div>
 
   <!-- Video 2 -->
-  <div class="video-frame" data-title="Aquaman and the Lost Kingdom" data-srchttps://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21ERRBTTq5EaNpmWo9ERWpWTqFUNORkTrpVbRBTWUF0dNJTV35kMZRTT6FUP:1755153236:152.58.133.68:07723db5d2625ebd4f30ca508e51f6c10853bad643e60cd0381ef204fe3688fa/1080/index.m3u8">
+  <div class="video-frame" data-title="Aquaman and the Lost Kingdom" data-src="https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19.../index.m3u8">
     <div class="video-title">Aquaman and the Lost Kingdom</div>
     <div class="video-wrapper">
       <video id="video2" controls></video>
       <div class="fallback">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/34452-aquaman-and-the-lost-kingdom-2023-hindi-dual-audio-hdts-720p-480p.html" class="download-button" download target="_blank">
-      ⬇️ Download Video
-    </a>
+    <a href="https://vegamovies.ly/34452-aquaman-and-the-lost-kingdom-2023-hindi-dual-audio-hdts-720p-480p.html" class="download-button" download target="_blank">⬇️ Download Video</a>
   </div>
 
   <!-- Video 3 -->
-  <div class="video-frame" data-title="Final Destination 2025" data-src="https://cdn30091.deand373use.com/stream2/i-arch-400/.../index.m3u8">
+  <div class="video-frame" data-title="Final Destination 2025" data-src="https://cdn30091.deand373use.com/stream2/i-arch-400/xyzpath/index.m3u8">
     <div class="video-title">Final Destination 2025</div>
     <div class="video-wrapper">
       <video id="video3" controls></video>
       <div class="fallback">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://cdn30091.deand373use.com/..." class="download-button" download target="_blank">
-      ⬇️ Watch & Download Video
-    </a>
+    <a href="https://cdn30091.deand373use.com/..." class="download-button" download target="_blank">⬇️ Watch & Download Video</a>
   </div>
-
-  <!-- More videos can be added here following the same structure -->
 
 </div>
 
@@ -175,11 +167,11 @@
   © 2025 StreamSeva. All rights reserved.
 </footer>
 
-<!-- HLS.js and logic -->
+<!-- HLS.js logic -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
   // Attach video sources
-  document.querySelectorAll('.video-frame').forEach((frame, index) => {
+  document.querySelectorAll('.video-frame').forEach((frame) => {
     const video = frame.querySelector('video');
     const fallback = frame.querySelector('.fallback');
     const src = frame.getAttribute('data-src');
