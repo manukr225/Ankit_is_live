@@ -129,19 +129,39 @@
 <div class="video-container" id="videoContainer">
 
   <!-- Video 1 -->
-  <div class="video-frame" data-title="kingdom">
-    <div class="video-title">kingdom</div>
-    <div class="video-wrapper">
-      <video id="video1" controls></video>
-      <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
-    </div>
-    <a href="https://en.cineb-official.com/movie/bhool-chuk-maaf-2025/97132" 
-       class="download-button" 
-       download 
-       target="_blank">
-      ⬇️ Download Video
-    </a>
+<div class="video-frame" data-title="kingdom 2025">
+  <div class="video-title">kingdom 2025</div>
+  <div class="video-wrapper">
+    <video id="video3" controls width="100%" height="auto"></video>
+    <div class="fallback" id="fallback3" style="display: none;">⚠️ Browser doesn't support HLS</div>
   </div>
+  
+  <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" 
+     class="download-button" 
+     download 
+     target="_blank">
+    ⬇️ Watch & Download Video
+  </a>
+</div>
+
+<!-- HLS.js script -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const video = document.getElementById('video3');
+    const videoSrc = 'https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kerBjWUJUaORUQ4plardnTq50aaRkQq90RaxWTUt2dOR0Y4llaCtmWEtWP:1755151796:152.58.133.68:c999887693cc788c199456d5d36633ebb9d045f962c4268e00314502a0b2c5e3/1080/index.m3u8';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    } else {
+      document.getElementById('fallback3').style.display = 'block';
+    }
+  });
+</script>
 
   <!-- Video 2 -->
 <div class="video-frame" data-title="Thunderbolts 2025">
