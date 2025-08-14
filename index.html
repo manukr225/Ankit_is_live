@@ -61,7 +61,7 @@
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 ratio */
+      padding-top: 56.25%; /* 16:9 aspect ratio */
       background-color: #000;
     }
 
@@ -123,31 +123,41 @@
 <h1>🎬 AnkitSeva - Ankit's Video Hub</h1>
 <p>Enjoy streaming high-quality HLS videos</p>
 
+<!-- Search Bar -->
 <input type="text" id="searchBar" class="search-bar" placeholder="Search for a movie..." onkeyup="filterVideos()">
 
 <div class="video-container" id="videoContainer">
 
   <!-- Video 1 -->
-  <div class="video-frame" data-title="kingdom 2025">
-    <div class="video-title">kingdom 2025</div>
+  <div class="video-frame" data-title="kingdom">
+    <div class="video-title">kingdom</div>
     <div class="video-wrapper">
       <video id="video1" controls></video>
       <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" class="download-button" target="_blank">
-      ⬇️ Watch & Download Video
+    <a href="https://en.cineb-official.com/movie/bhool-chuk-maaf-2025/97132" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
     </a>
   </div>
 
   <!-- Video 2 -->
-  <div class="video-frame" data-title="Thunderbolts 2025">
-    <div class="video-title">Thunderbolts 2025</div>
+  <div class="video-frame" data-title="Oho Enthan Baby 2025 Hindi">
+    <div class="video-title">Oho Enthan Baby 2025 Hind </div>
     <div class="video-wrapper">
-      <video id="video2" controls></video>
+      <video id="video2" controls>
+        <source src="https://anchovyjem.rest/cv/v/8c/2f/8c2f7cf04642fac446ba7ede1aa82f5e47ccf9e0_x264.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
       <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/40317-thunderbolts-2025-hindi-audio-pre-hd-720p-480p-1080p.html" class="download-button" target="_blank">
-      ⬇️ Watch & Download Video
+<a href="https://vegamovies.ly/41691-squid-game-season-3-2025-hindi-dubbed-webdl-1080p-720p-480p.html" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
     </a>
   </div>
 
@@ -158,8 +168,11 @@
       <video id="video3" controls></video>
       <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/40515-final-destination-bloodlines-2025-hindi-dual-audio-pre-hd-720-480p-1080p.html" class="download-button" target="_blank">
-      ⬇️ Watch & Download Video
+<a href="https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25ERFlnTq5kaa1WT45EVjpnTy4EbaRFbp50VRVjT6Z0aPdkVsl1VJNTTUtWP:1755149216:152.58.133.68:a0ad315e3331bb17f637885ae592f491de00e6c9e94855b26536ec1cbb2abb8f/1080/index.m3u8" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ watch & Download Video
     </a>
   </div>
 
@@ -170,7 +183,10 @@
       <video id="video4" controls></video>
       <div class="fallback" id="fallback4">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://www.mp4moviez.holiday/maalik-(2025)-hindi-movie-hd-48757.html" class="download-button" target="_blank">
+<a href="https://www.mp4moviez.holiday/maalik-(2025)-hindi-movie-hd-48757.html" 
+       class="download-button" 
+       download 
+       target="_blank">
       ⬇️ Download Video
     </a>
   </div>
@@ -181,14 +197,17 @@
     <div class="video-wrapper">
       <video id="video5" controls></video>
       <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
-    </div>
-    <a href="https://www.mp4moviez.holiday/aankhon-ki-gustaakhiyan-(2025)-hindi-movie-hd-48543.html" class="download-button" target="_blank">
+    </div><a href="https://www.mp4moviez.holiday/aankhon-ki-gustaakhiyan-(2025)-hindi-movie-hd-48543.html" 
+       class="download-button" 
+       download 
+       target="_blank">
       ⬇️ Download Video
     </a>
   </div>
 
 </div>
 
+<!-- Movie Request Form -->
 <h2>🎬 Request a Movie</h2>
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWEpa0SdAYa-c1jijanl2n84CjD2LlJ-8M3mYnQA_50JW2Bw/viewform?usp=dialog" width="640" height="580" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
@@ -196,48 +215,50 @@
   © 2025 StreamSeva. All rights reserved.
 </footer>
 
-<!-- HLS Player Logic -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-  const videoData = [
-    {
-      id: 'video1',
-      fallbackId: 'fallback1',
-      src: 'https://cdn4504.deand373use.com/stream2/i-cdn-0/.../index.m3u8' // replace with actual source
-    },
-    {
-      id: 'video2',
-      fallbackId: 'fallback2',
-      src: 'https://cdn30091.deand373use.com/stream2/i-arch-400/.../index.m3u8'
-    },
-    {
-      id: 'video3',
-      fallbackId: 'fallback3',
-      src: 'https://cdn30091.deand373use.com/stream2/i-arch-400/.../index.m3u8'
-    },
-    {
-      id: 'video4',
-      fallbackId: 'fallback4',
-      src: 'https://example.com/video4/index.m3u8'
-    },
-    {
-      id: 'video5',
-      fallbackId: 'fallback5',
-      src: 'https://example.com/video5/index.m3u8'
-    }
+  const sources = [
+    "https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21EVFpXWUFkMa1WSz8ERrlnWE1UNORUQ31kMFhnWqlEMPRVSzklMZRTWU1UP:1755146576:152.58.133.68:37b8808fcea33bd87702f636d145b76adc11cd5ac3e3179e541a1d3bc447721b/1080/index.m3u8",
+
+    "https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVRNjTUdmeZJjRsl1VS1mTHVFeOdUS0klenJTT6p1aOpWR49ERjpXWXFVP:1755148639:152.58.133.68:05fa9ce0a840eca53cbdcf3e509369c88e97fbadba8c46c2ee438cfd1ae4ac22/1080/index.m3u8",
+
+    "https://cdn4505.comte372suc.com/stream2/i-cdn-0/4c436548b4516847c4710ea91704eda5/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleKhmWXlVeaRUU31kaaxmWqlUeZRFbrl1VVRjWXZVaNpmVq90RaxmWE1UP:1754884882:152.59.170.75:8698d5449091bd86a7b029f29489d9f63d6c0dd4e44c2ef3f306e459a57d0846/1080/index.m3u8",
+
+    "https://cdn30091.comte372suc.com/stream2/i-arch-400/4c436548b4516847c4710ea91704eda5/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EROhWTEZlaOJTW10EVFVjTHlFMOdUWx0UbRRzTUl0daR1Z4p1VWp2TEtWP:1754884738:152.59.170.75:54fd39dc950b0b9af8f9b0a620a22f0d05f1c6f3d13fc0da2102df33c8d88c39/1080/index.m3u8",
+
+    "https://cdn30093.comte372suc.com/stream2/i-arch-400/d7cc7509fa6848915881a1c55e0f6499/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVNJTTUFFMZpWS0oFRSpmTEpFaa1mUoplaVBTTHVFNORUUw0kMJRTW6tWP:1754874668:152.59.146.126:8dca0bb3ef199edef86665871ad828ffeb112442abc41bd5bfcf64c3e21e9228/1080/index.m3u8"
   ];
 
-  window.addEventListener('DOMContentLoaded', () => {
-    videoData.forEach(item => {
-      const video = document.getElementById(item.id);
-      const fallback = document.getElementById(item.fallbackId);
+  sources.forEach((src, index) => {
+    const video = document.getElementById(`video${index + 1}`);
+    const fallback = document.getElementById(`fallback${index + 1}`);
 
-      if (!video) return;
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    } else {
+      fallback.style.display = 'block';
+    }
+  });
 
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(item.src);
-        hls.attachMedia(video);
-      } else if (
+  // Function to filter videos based on search input
+  function filterVideos() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let videoFrames = document.querySelectorAll('.video-frame');
 
-        
+    videoFrames.forEach(frame => {
+      let title = frame.getAttribute('data-title').toLowerCase();
+      if (title.includes(input)) {
+        frame.style.display = 'block';
+      } else {
+        frame.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
