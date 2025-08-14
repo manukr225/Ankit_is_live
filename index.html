@@ -61,7 +61,7 @@
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%;
+      padding-top: 56.25%; /* 16:9 ratio */
       background-color: #000;
     }
 
@@ -127,4 +127,117 @@
 
 <div class="video-container" id="videoContainer">
 
-  <!-- Vide
+  <!-- Video 1 -->
+  <div class="video-frame" data-title="kingdom 2025">
+    <div class="video-title">kingdom 2025</div>
+    <div class="video-wrapper">
+      <video id="video1" controls></video>
+      <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
+    </div>
+    <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" class="download-button" target="_blank">
+      ⬇️ Watch & Download Video
+    </a>
+  </div>
+
+  <!-- Video 2 -->
+  <div class="video-frame" data-title="Thunderbolts 2025">
+    <div class="video-title">Thunderbolts 2025</div>
+    <div class="video-wrapper">
+      <video id="video2" controls></video>
+      <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
+    </div>
+    <a href="https://vegamovies.ly/40317-thunderbolts-2025-hindi-audio-pre-hd-720p-480p-1080p.html" class="download-button" target="_blank">
+      ⬇️ Watch & Download Video
+    </a>
+  </div>
+
+  <!-- Video 3 -->
+  <div class="video-frame" data-title="final destination 2025">
+    <div class="video-title">final destination 2025</div>
+    <div class="video-wrapper">
+      <video id="video3" controls></video>
+      <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
+    </div>
+    <a href="https://vegamovies.ly/40515-final-destination-bloodlines-2025-hindi-dual-audio-pre-hd-720-480p-1080p.html" class="download-button" target="_blank">
+      ⬇️ Watch & Download Video
+    </a>
+  </div>
+
+  <!-- Video 4 -->
+  <div class="video-frame" data-title="Saiyaara">
+    <div class="video-title">Saiyaara</div>
+    <div class="video-wrapper">
+      <video id="video4" controls></video>
+      <div class="fallback" id="fallback4">⚠️ Browser doesn't support HLS</div>
+    </div>
+    <a href="https://www.mp4moviez.holiday/maalik-(2025)-hindi-movie-hd-48757.html" class="download-button" target="_blank">
+      ⬇️ Download Video
+    </a>
+  </div>
+
+  <!-- Video 5 -->
+  <div class="video-frame" data-title="Aankhon Ki Gustaakhiyan (Hindi)">
+    <div class="video-title">Aankhon Ki Gustaakhiyan (Hindi)</div>
+    <div class="video-wrapper">
+      <video id="video5" controls></video>
+      <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
+    </div>
+    <a href="https://www.mp4moviez.holiday/aankhon-ki-gustaakhiyan-(2025)-hindi-movie-hd-48543.html" class="download-button" target="_blank">
+      ⬇️ Download Video
+    </a>
+  </div>
+
+</div>
+
+<h2>🎬 Request a Movie</h2>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWEpa0SdAYa-c1jijanl2n84CjD2LlJ-8M3mYnQA_50JW2Bw/viewform?usp=dialog" width="640" height="580" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+<footer>
+  © 2025 StreamSeva. All rights reserved.
+</footer>
+
+<!-- HLS Player Logic -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  const videoData = [
+    {
+      id: 'video1',
+      fallbackId: 'fallback1',
+      src: 'https://cdn4504.deand373use.com/stream2/i-cdn-0/.../index.m3u8' // replace with actual source
+    },
+    {
+      id: 'video2',
+      fallbackId: 'fallback2',
+      src: 'https://cdn30091.deand373use.com/stream2/i-arch-400/.../index.m3u8'
+    },
+    {
+      id: 'video3',
+      fallbackId: 'fallback3',
+      src: 'https://cdn30091.deand373use.com/stream2/i-arch-400/.../index.m3u8'
+    },
+    {
+      id: 'video4',
+      fallbackId: 'fallback4',
+      src: 'https://example.com/video4/index.m3u8'
+    },
+    {
+      id: 'video5',
+      fallbackId: 'fallback5',
+      src: 'https://example.com/video5/index.m3u8'
+    }
+  ];
+
+  window.addEventListener('DOMContentLoaded', () => {
+    videoData.forEach(item => {
+      const video = document.getElementById(item.id);
+      const fallback = document.getElementById(item.fallbackId);
+
+      if (!video) return;
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(item.src);
+        hls.attachMedia(video);
+      } else if (
+
+        
