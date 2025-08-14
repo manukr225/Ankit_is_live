@@ -61,7 +61,7 @@
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
       background-color: #000;
     }
 
@@ -123,38 +123,86 @@
 <h1>🎬 AnkitSeva - Ankit's Video Hub</h1>
 <p>Enjoy streaming high-quality HLS videos</p>
 
+<!-- Search Bar -->
 <input type="text" id="searchBar" class="search-bar" placeholder="Search for a movie..." onkeyup="filterVideos()">
 
 <div class="video-container" id="videoContainer">
 
   <!-- Video 1 -->
-  <div class="video-frame" data-title="kingdom" data-src="https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGT.../1080/index.m3u8">
+  <div class="video-frame" data-title="kingdom">
     <div class="video-title">kingdom</div>
     <div class="video-wrapper">
       <video id="video1" controls></video>
-      <div class="fallback">⚠️ Browser doesn't support HLS</div>
+      <div class="fallback" id="fallback1">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/42741-kingdom-2025-hindi-audio-camrip-720p-480p.html" class="download-button" download target="_blank">⬇️ Download Video</a>
+    <a href="https://en.cineb-official.com/movie/bhool-chuk-maaf-2025/97132" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
+    </a>
   </div>
 
   <!-- Video 2 -->
-  <div class="video-frame" data-title="Aquaman and the Lost Kingdom" data-src="https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19.../index.m3u8">
-    <div class="video-title">Aquaman and the Lost Kingdom</div>
+  <div class="video-frame" data-title="Oho Enthan Baby 2025 Hindi">
+    <div class="video-title">Oho Enthan Baby 2025 Hind </div>
     <div class="video-wrapper">
-      <video id="video2" controls></video>
-      <div class="fallback">⚠️ Browser doesn't support HLS</div>
+      <video id="video2" controls>
+        <source src="https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21ERRBTTq5EaNpmWo9ERWpWTqFUNORkTrpVbRBTWUF0dNJTV35kMZRTT6FUP:1755153236:152.58.133.68:07723db5d2625ebd4f30ca508e51f6c10853bad643e60cd0381ef204fe3688fa/1080/index.m3u8" type="hlv">
+        Your browser does not support the video tag.
+      </video>
+      <div class="fallback" id="fallback2">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://vegamovies.ly/34452-aquaman-and-the-lost-kingdom-2023-hindi-dual-audio-hdts-720p-480p.html" class="download-button" download target="_blank">⬇️ Download Video</a>
+<a href="https://vegamovies.ly/41691-squid-game-season-3-2025-hindi-dubbed-webdl-1080p-720p-480p.html" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
+    </a>
   </div>
 
   <!-- Video 3 -->
-  <div class="video-frame" data-title="Final Destination 2025" data-src="https://cdn30091.deand373use.com/stream2/i-arch-400/xyzpath/index.m3u8">
-    <div class="video-title">Final Destination 2025</div>
+  <div class="video-frame" data-title="final destination 2025">
+    <div class="video-title">final destination 2025</div>
     <div class="video-wrapper">
       <video id="video3" controls></video>
-      <div class="fallback">⚠️ Browser doesn't support HLS</div>
+      <div class="fallback" id="fallback3">⚠️ Browser doesn't support HLS</div>
     </div>
-    <a href="https://cdn30091.deand373use.com/..." class="download-button" download target="_blank">⬇️ Watch & Download Video</a>
+<a href="https://vegamovies.ly/34452-aquaman-and-the-lost-kingdom-2023-hindi-dual-audio-hdts-720p-480p.html" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ watch & Download Video
+    </a>
+  </div>
+
+  <!-- Video 4 -->
+  <div class="video-frame" data-title="Saiyaara">
+    <div class="video-title">Saiyaara</div>
+    <div class="video-wrapper">
+      <video id="video4" controls></video>
+      <div class="fallback" id="fallback4">⚠️ Browser doesn't support HLS</div>
+    </div>
+<a href="https://www.mp4moviez.holiday/maalik-(2025)-hindi-movie-hd-48757.html" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
+    </a>
+  </div>
+
+  <!-- Video 5 -->
+  <div class="video-frame" data-title="Aankhon Ki Gustaakhiyan (Hindi)">
+    <div class="video-title">Aankhon Ki Gustaakhiyan (Hindi)</div>
+    <div class="video-wrapper">
+      <video id="video5" controls></video>
+      <div class="fallback" id="fallback5">⚠️ Browser doesn't support HLS</div>
+    </div><a href="https://www.mp4moviez.holiday/aankhon-ki-gustaakhiyan-(2025)-hindi-movie-hd-48543.html" 
+       class="download-button" 
+       download 
+       target="_blank">
+      ⬇️ Download Video
+    </a>
   </div>
 
 </div>
@@ -167,16 +215,23 @@
   © 2025 StreamSeva. All rights reserved.
 </footer>
 
-<!-- HLS.js logic -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-  // Attach video sources
-  document.querySelectorAll('.video-frame').forEach((frame) => {
-    const video = frame.querySelector('video');
-    const fallback = frame.querySelector('.fallback');
-    const src = frame.getAttribute('data-src');
+  const sources = [
+    "https://cdn4504.deand373use.com/stream2/i-cdn-0/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21EVFpXWUFkMa1WSz8ERrlnWE1UNORUQ31kMFhnWqlEMPRVSzklMZRTWU1UP:1755146576:152.58.133.68:37b8808fcea33bd87702f636d145b76adc11cd5ac3e3179e541a1d3bc447721b/1080/index.m3u8",
 
-    if (!src || !video) return;
+    "https://cdn30091.deand373use.com/stream2/i-arch-400/b13a49803d19c93480d021b3cce1c482/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVRNjTUdmeZJjRsl1VS1mTHVFeOdUS0klenJTT6p1aOpWR49ERjpXWXFVP:1755148639:152.58.133.68:05fa9ce0a840eca53cbdcf3e509369c88e97fbadba8c46c2ee438cfd1ae4ac22/1080/index.m3u8",
+
+    "https://cdn4505.comte372suc.com/stream2/i-cdn-0/4c436548b4516847c4710ea91704eda5/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleKhmWXlVeaRUU31kaaxmWqlUeZRFbrl1VVRjWXZVaNpmVq90RaxmWE1UP:1754884882:152.59.170.75:8698d5449091bd86a7b029f29489d9f63d6c0dd4e44c2ef3f306e459a57d0846/1080/index.m3u8",
+
+    "https://cdn30091.comte372suc.com/stream2/i-arch-400/4c436548b4516847c4710ea91704eda5/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EROhWTEZlaOJTW10EVFVjTHlFMOdUWx0UbRRzTUl0daR1Z4p1VWp2TEtWP:1754884738:152.59.170.75:54fd39dc950b0b9af8f9b0a620a22f0d05f1c6f3d13fc0da2102df33c8d88c39/1080/index.m3u8",
+
+    "https://cdn30093.comte372suc.com/stream2/i-arch-400/d7cc7509fa6848915881a1c55e0f6499/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVNJTTUFFMZpWS0oFRSpmTEpFaa1mUoplaVBTTHVFNORUUw0kMJRTW6tWP:1754874668:152.59.146.126:8dca0bb3ef199edef86665871ad828ffeb112442abc41bd5bfcf64c3e21e9228/1080/index.m3u8"
+  ];
+
+  sources.forEach((src, index) => {
+    const video = document.getElementById(`video${index + 1}`);
+    const fallback = document.getElementById(`fallback${index + 1}`);
 
     if (Hls.isSupported()) {
       const hls = new Hls();
@@ -189,12 +244,18 @@
     }
   });
 
-  // Filter by search
+  // Function to filter videos based on search input
   function filterVideos() {
-    const input = document.getElementById('searchBar').value.toLowerCase();
-    document.querySelectorAll('.video-frame').forEach(frame => {
-      const title = frame.getAttribute('data-title').toLowerCase();
-      frame.style.display = title.includes(input) ? 'block' : 'none';
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let videoFrames = document.querySelectorAll('.video-frame');
+
+    videoFrames.forEach(frame => {
+      let title = frame.getAttribute('data-title').toLowerCase();
+      if (title.includes(input)) {
+        frame.style.display = 'block';
+      } else {
+        frame.style.display = 'none';
+      }
     });
   }
 </script>
