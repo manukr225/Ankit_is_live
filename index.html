@@ -1,441 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cine-Verse Portal</title>
-    <style>
-        :root {
-            --background-color: #f4f4f5; /* Light Gray */
-            --text-color: #111827; /* Dark Gray */
-            --border-color: #d1d5db; /* Lighter Gray */
-            --primary-button-bg: #000000;
-            --primary-button-text: #ffffff;
-            --link-color: #3b82f6;
-        }
-        body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        /* --- Page & Utility Classes --- */
-        .page { display: none; flex-direction: column; min-height: 100vh; }
-        .page.active { display: flex; }
-        .hidden { display: none !important; }
-
-        /* --- Login Portals --- */
-        .portal-page {
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-        .portal-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 2.5rem 2rem;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .portal-container h1 {
-            text-align: center;
-            margin: 0 0 1rem 0;
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
-        .input-group input {
-            padding: 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        .input-group input:focus { outline: 2px solid var(--link-color); border-color: transparent; }
-        .button {
-            padding: 0.8rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: opacity 0.2s;
-        }
-        .button:hover { opacity: 0.9; }
-        .btn-primary { background-color: var(--primary-button-bg); color: var(--primary-button-text); }
-        .portal-switch-link, .portal-sub-link {
-            text-align: center;
-            color: var(--text-color);
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .portal-switch-link span, .portal-sub-link span { color: var(--link-color); font-weight: 600; }
-        .status-message { text-align: center; font-weight: bold; padding: 0.5rem; border-radius: 4px; }
-        .status-message.error { color: #ef4444; }
-        .status-message.success { color: #22c55e; }
-
-        /* --- Main App Header --- */
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background-color: #ffffff;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .search-bar { flex-grow: 1; margin: 0 1rem; }
-        .search-bar input {
-            width: 100%;
-            padding: 0.6rem 1rem;
-            background-color: #f4f4f5;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #e5e7eb;
-            cursor: pointer;
-        }
-        .profile-icon svg { width: 24px; height: 24px; fill: var(--text-color); }
-
-        /* --- Home Page --- */
-        #movie-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem; }
-        .movie-card { cursor: pointer; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .movie-card-thumbnail { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-        .movie-card-info { padding: 1rem; }
-        .movie-card-info h3 { margin: 0; font-size: 1.2rem; }
-        .movie-card-info p { margin: 0.25rem 0 0; color: #6b7280; }
-
-        /* --- Movie Streaming Page --- */
-        #streaming-page-content { padding: 1rem; }
-        .video-player-container { width: 100%; aspect-ratio: 16 / 9; background-color: #000; margin-bottom: 1rem; }
-        #video-player { width: 100%; height: 100%; }
-        #movie-details h2 { margin-top: 0; }
-
-        /* --- Admin Upload Page --- */
-        #admin-upload-page .form-container {
-            border: none;
-            box-shadow: none;
-            max-width: 600px;
-            padding: 1rem;
-        }
-    </style>
+<html>
 </head>
 <body>
-
-    <!-- User Login Portal -->
-    <div id="user-portal-page" class="page portal-page active">
-        <div class="portal-container">
-            <h1>User Portal</h1>
-            <div class="input-group">
-                <input type="email" id="user-email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <input type="password" id="user-password" placeholder="Password">
-            </div>
-            <p id="user-error-message" class="status-message error hidden"></p>
-            <button id="user-login-button" class="button btn-primary">Login</button>
-            <p class="portal-sub-link" id="show-signup-link">Don't have an account? <span>Register</span></p>
-            <p class="portal-switch-link" id="goto-admin-portal">Go to <span>Admin Portal</span></p>
-        </div>
-    </div>
-
-    <!-- User Signup Portal -->
-    <div id="signup-portal-page" class="page portal-page">
-        <div class="portal-container">
-            <h1>Create Account</h1>
-            <div class="input-group">
-                <input type="email" id="signup-email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <input type="password" id="signup-password" placeholder="Password">
-            </div>
-            <p id="signup-error-message" class="status-message error hidden"></p>
-            <button id="signup-button" class="button btn-primary">Register</button>
-            <p class="portal-sub-link" id="show-login-link">Already have an account? <span>Login</span></p>
-        </div>
-    </div>
-
-    <!-- Admin Login Portal -->
-    <div id="admin-portal-page" class="page portal-page">
-        <div class="portal-container">
-            <h1>Admin Portal</h1>
-            <div class="input-group">
-                <input type="email" id="admin-email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <input type="password" id="admin-password" placeholder="Password">
-            </div>
-            <p id="admin-error-message" class="status-message error hidden"></p>
-            <button id="admin-login-button" class="button btn-primary">Login</button>
-            <p class="portal-switch-link" id="goto-user-portal">Go to <span>User Portal</span></p>
-        </div>
-    </div>
-
-    <!-- Home Page (for users) -->
-    <div id="home-page" class="page">
-        <header class="app-header">
-            <div class="search-bar">
-                <input type="search" placeholder="Search movies...">
-            </div>
-            <div id="profile-button" class="profile-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            </div>
-        </header>
-        <main id="movie-grid"></main>
-    </div>
-    
-    <!-- Admin Upload Page -->
-    <div id="admin-upload-page" class="page">
-        <header class="app-header">
-            <h1>Movie Upload</h1>
-            <button id="admin-logout-button" class="button btn-primary">Logout</button>
-        </header>
-        <form id="upload-form" class="form-container">
-            <div class="input-group">
-                <label for="movie-title">Title</label>
-                <input type="text" id="movie-title" required>
-            </div>
-            <div class="input-group">
-                <label for="movie-year">Release Year</label>
-                <input type="number" id="movie-year" required>
-            </div>
-            <div class="input-group">
-                <label for="movie-desc">Description</label>
-                <textarea id="movie-desc" rows="4" required></textarea>
-            </div>
-            <div class="input-group">
-                <label for="movie-thumb">Thumbnail Image</label>
-                <input type="file" id="movie-thumb" accept="image/*" required>
-            </div>
-            <div class="input-group">
-                <label for="movie-video">Video File</label>
-                <input type="file" id="movie-video" accept="video/*" required>
-            </div>
-            <p id="upload-status" class="status-message hidden"></p>
-            <button type="submit" class="button btn-primary">Add Movie</button>
-        </form>
-    </div>
-
-    <!-- Movie Streaming Page (for users) -->
-    <div id="streaming-page" class="page">
-        <!-- Header will be similar to home page, can be added if needed -->
-        <main id="streaming-page-content">
-            <button id="back-button" class="button"> &larr; Back to Home</button>
-            <br><br>
-            <div class="video-player-container">
-                <video id="video-player" controls controlsList="nodownload"></video>
-            </div>
-            <div id="movie-details">
-                <h2 id="movie-stream-title"></h2>
-                <p id="movie-stream-description"></p>
-            </div>
-        </main>
-    </div>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-
-    <script>
-        const firebaseConfig = {
-            // TU CONFIGURACIÓN DE FIREBASE AQUÍ
-            apiKey: "AIzaSyCYOhS9LFYDopNVRUhubPddHF4dyKZUs9g",
-            authDomain: "cine-verse-8c12b.firebaseapp.com",
-            databaseURL: "https://cine-verse-8c12b-default-rtdb.firebaseio.com",
-            projectId: "cine-verse-8c12b",
-            storageBucket: "cine-verse-8c12b.appspot.com",
-            messagingSenderId: "232194416079",
-            appId: "1:232194416079:web:5da38972f49f2d26d906ba",
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
-        const storage = firebase.storage();
-
-        const pages = {
-            userPortal: document.getElementById('user-portal-page'),
-            signupPortal: document.getElementById('signup-portal-page'),
-            adminPortal: document.getElementById('admin-portal-page'),
-            home: document.getElementById('home-page'),
-            adminUpload: document.getElementById('admin-upload-page'),
-            streaming: document.getElementById('streaming-page'),
-        };
-
-        function showPage(pageName) {
-            Object.values(pages).forEach(page => page.classList.remove('active'));
-            pages[pageName].classList.add('active');
-        }
-        
-        // --- Portal Switching Logic ---
-        document.getElementById('goto-admin-portal').addEventListener('click', () => showPage('adminPortal'));
-        document.getElementById('goto-user-portal').addEventListener('click', () => showPage('userPortal'));
-        document.getElementById('show-signup-link').addEventListener('click', () => showPage('signupPortal'));
-        document.getElementById('show-login-link').addEventListener('click', () => showPage('userPortal'));
-
-        // --- Auth State Change ---
-        auth.onAuthStateChanged(user => {
-            if (!user) {
-                showPage('userPortal'); // If logged out, always return to user portal
-            }
-        });
-
-        // --- User Portal Logic ---
-        const userEmail = document.getElementById('user-email');
-        const userPassword = document.getElementById('user-password');
-        const userError = document.getElementById('user-error-message');
-        document.getElementById('user-login-button').addEventListener('click', () => {
-            auth.signInWithEmailAndPassword(userEmail.value, userPassword.value)
-                .then(userCredential => {
-                    loadMovies();
-                    showPage('home');
-                })
-                .catch(error => {
-                    userError.textContent = error.message;
-                    userError.classList.remove('hidden');
-                });
-        });
-
-        // --- Signup Portal Logic ---
-        const signupEmail = document.getElementById('signup-email');
-        const signupPassword = document.getElementById('signup-password');
-        const signupError = document.getElementById('signup-error-message');
-        document.getElementById('signup-button').addEventListener('click', () => {
-            auth.createUserWithEmailAndPassword(signupEmail.value, signupPassword.value)
-                .then(userCredential => {
-                    loadMovies();
-                    showPage('home'); // Log in and go home after signup
-                })
-                .catch(error => {
-                    signupError.textContent = error.message;
-                    signupError.classList.remove('hidden');
-                });
-        });
-
-        // --- Admin Portal Logic ---
-        const adminEmail = document.getElementById('admin-email');
-        const adminPassword = document.getElementById('admin-password');
-        const adminError = document.getElementById('admin-error-message');
-        document.getElementById('admin-login-button').addEventListener('click', () => {
-            auth.signInWithEmailAndPassword(adminEmail.value, adminPassword.value)
-                .then(userCredential => {
-                    // CRITICAL: Check for admin custom claim AFTER login
-                    return userCredential.user.getIdTokenResult();
-                })
-                .then(idTokenResult => {
-                    if (idTokenResult.claims.admin === true) {
-                        showPage('adminUpload'); // Success! Go to upload page.
-                    } else {
-                        // Not an admin, show error and sign out.
-                        auth.signOut();
-                        adminError.textContent = "You do not have admin privileges.";
-                        adminError.classList.remove('hidden');
-                    }
-                })
-                .catch(error => {
-                    adminError.textContent = error.message;
-                    adminError.classList.remove('hidden');
-                });
-        });
-
-        // --- General App Logic ---
-        document.getElementById('profile-button').addEventListener('click', () => auth.signOut());
-        document.getElementById('admin-logout-button').addEventListener('click', () => auth.signOut());
-
-        function loadMovies() {
-            db.ref('movies').on('value', snapshot => {
-                const movies = snapshot.val();
-                pages.home.querySelector('#movie-grid').innerHTML = '';
-                for (const movieId in movies) {
-                    const movie = movies[movieId];
-                    const movieCard = document.createElement('div');
-                    movieCard.className = 'movie-card';
-                    movieCard.innerHTML = `
-                        <img src="${movie.thumbnailUrl}" alt="${movie.title}" class="movie-card-thumbnail">
-                        <div class="movie-card-info">
-                            <h3>${movie.title}</h3>
-                            <p>${movie.releaseYear}</p>
-                        </div>`;
-                    movieCard.addEventListener('click', () => openStreamingPage(movie));
-                    pages.home.querySelector('#movie-grid').appendChild(movieCard);
-                }
-            });
-        }
-        
-        function openStreamingPage(movie) {
-            pages.streaming.querySelector('#movie-stream-title').textContent = movie.title;
-            pages.streaming.querySelector('#movie-stream-description').textContent = movie.description;
-            const videoPlayer = pages.streaming.querySelector('#video-player');
-            videoPlayer.src = movie.videoUrl;
-            showPage('streaming');
-        }
-
-        document.getElementById('back-button').addEventListener('click', () => {
-            pages.streaming.querySelector('#video-player').pause();
-            pages.streaming.querySelector('#video-player').src = "";
-            showPage('home');
-        });
-
-        // --- Admin Upload Form Logic ---
-        const uploadForm = document.getElementById('upload-form');
-        const uploadStatus = document.getElementById('upload-status');
-        uploadForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = document.getElementById('movie-title').value;
-            const year = document.getElementById('movie-year').value;
-            const desc = document.getElementById('movie-desc').value;
-            const thumbFile = document.getElementById('movie-thumb').files[0];
-            const videoFile = document.getElementById('movie-video').files[0];
-            if (!thumbFile || !videoFile) return;
-
-            setStatus('Uploading files... Please wait.', 'info');
-            
-            try {
-                const thumbRef = storage.ref(`thumbnails/${Date.now()}_${thumbFile.name}`);
-                const thumbUrl = await (await thumbRef.put(thumbFile)).ref.getDownloadURL();
-                setStatus('Thumbnail uploaded. Uploading video...', 'info');
-
-                const videoRef = storage.ref(`videos/${Date.now()}_${videoFile.name}`);
-                const videoUrl = await (await videoRef.put(videoFile)).ref.getDownloadURL();
-                setStatus('Saving to database...', 'info');
-
-                await db.ref('movies').push().set({
-                    title, releaseYear: Number(year), description: desc, thumbnailUrl: thumbUrl, videoUrl
-                });
-
-                setStatus('Movie added successfully!', 'success');
-                uploadForm.reset();
-            } catch (error) {
-                setStatus(`Error: ${error.message}`, 'error');
-            }
-        });
-
-        function setStatus(message, type) {
-            uploadStatus.textContent = message;
-            uploadStatus.className = `status-message ${type}`;
-            uploadStatus.classList.remove('hidden');
-        }
-
-    </script>
-</body>
+<script>
+window.location.href = "https://t.me/couple365";
+</script>
 </html>
+<noscript>
+</noscript>
+#EXTM3U
+#EXTINF:-1 tvg-id="" group-title="Join🤖@couple365" group-logo="https://i.ibb.co/RYsYthb/Screenshot-2024-01-08-172016.png" tvg-logo="https://i.ibb.co/RYsYthb/Screenshot-2024-01-08-172016.png" ,t.me/couple365
+https://embed-cloudfront.wistia.com/deliveries/282114c59788866afb4d40b935a62258.m3u8
+#EXTM3U x-tvg-url="https://avkb.short.gy/jioepg.xml.gz"
+#EXTM3U x-tvg-url="https://raw.githubusercontent.com/mitthu786/tvepg/main/tataplay/epg.xml.gz"
+#EXTM3U x-tvg-url="https://tsepg.cf/jio.xml.gz"
+#EXTM3U url-tvg="http://botallen.live/epg.xml.gz"
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 24 Ghanta
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-24ghantatv
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Republic Bharat
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-162
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeenews
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Polimer News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-203
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Putiya Thalamurai
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-220
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Vendhar TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-306
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Telugu
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-258
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV5 News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-222
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Punjab Haryana Himachal Pradesh
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeepunjabharyanahima
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Saam TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-270
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Marathi
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-257
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Aaj Tak
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-aajtak
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-282
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Bharatvarsh
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-251
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Busines
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeebusiness
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Gujarati
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-260
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee 24 Kalak
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zee24kalak
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Kannada
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-259
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Suvarna News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-201
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", News24
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-206
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India Today
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-indiatoday
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Tez
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-255
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee 24 Taas
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zee24taas
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Hindustan
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeehindustan
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Bihar Jharkhand
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeebiharjharkhand
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", WION
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-wion
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", E24
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-207
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Odisha
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeekalinganews
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Rajasthan News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeerajasthannews
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", News State Uttar Pradesh Uttrakhand
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-171
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zing
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zing
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Big Magic
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-bigmagic_1786965389
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee TV HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeetvhd
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", &TV HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-tvhd_0
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Marathi HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeemarathi
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Yuva
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeeyuva
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Café HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeecafehd
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Madhya Pradesh Chhattisgarh
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeemadhyapradeshchat
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Kannada
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeekannada
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Bangla
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeebangla
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Anmol
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeeanmol
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Cinema HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeecinemahd
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", &Pictures HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-tvpictureshd
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Talkies
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeetalkies
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Telugu
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeetelugu
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Bangla Cinema
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeebanglacinema
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Tamil
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeetamil
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Anmol Cinema
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeeanmolcinema
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Bollywood
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeeclassic
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Cinema
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeecinema
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", &Pictures
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-pictures
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Action
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeeaction
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Keralam HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-129
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Punjabi
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-215
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Chardikla Time TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-chardiklatimetvtimet
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Big Ganga
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-bigganga
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 9X Jalwa
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-133
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Cinemalu
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeecinemalu
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 9XM
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-131
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 9X Jhakaas
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-134
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Boogle Bollywood
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-165
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", &flix
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-channel_2105335046
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 9X Tashan
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-132
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Alpha ETC Punjabi
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-channel_2132977507
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Shiksha TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-163
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sanskar TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-channel_1144658965
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Shubh TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-327
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Satsang TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-channel_1565694979
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Divya TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-divyatv
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Krishna Vani
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-166
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Salaam
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeesalaam
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-zeetv
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Makkal TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-makkaltv
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Sarthak
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-sarthaktv
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Hare Krsna
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-183
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee News Uttar Pradesh Uttrakhand
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-channel_265145625
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", State Madhya Pradesh Chhattisgarh
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-172 News
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sports Flashes - Hindi
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-185
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Classic
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-176
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", The Q
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-181
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Asianet News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-200
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", &xplorHD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-209
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Biskope
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-216
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Puthyugam TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-221
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Thirai
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-224
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Zest HD
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-348
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", News X
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-273
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-272
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Picchar
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-241
+
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sugran TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-271
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News Punjabi Himachal
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-274
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News UP
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-275
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News Rajasthan
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-276
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News MP
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-277
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News Haryana
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-278
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", India News Gujarat
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-279
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", NE News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-280
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sadhna TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-284
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", IshwarTV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-285
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", ZEE5 Kids
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-290
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Non-stop EDM
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-296
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Local Vocal | United We Stand
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-298
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sounds of ZEE5 - Originals
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-299
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sounds of ZEE5 - Punjabi Beats
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-300
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sounds of ZEE5 - Romance
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-301
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sounds of ZEE5 - EDM
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-302
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", BBC World News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-339
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Living India
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-305
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Prag News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-310
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sadhna Plus News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-313
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", VIP News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-314
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Live Today
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-315
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Awakening
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-316
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TIME8
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-317
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Sadhna News MP/CG
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-319
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Rengoni
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-322
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Next Up on ZEE5 for April 2021
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-364
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Demo Moon Live
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-373
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Test Channel
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-381
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Ptunes
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-344
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Ek Onkar
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-345
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Uday News
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-346
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Zee Vajwa
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-353
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Bharat Samachar
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-354
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", ABN Andhra Jyothy
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-355
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", 10TV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-371
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", NTV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-372
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", LIVE Event
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-374
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Haryanvi Hits
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-375
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", Wah Punjabi
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-376
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", BTV
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-377
+#EXTINF: -1 tvg-id="1" group-title="ZEE5 ", TV9 Bangla
+https://hide-examination-aim-adams.trycloudflare.com/zee5/zee5.php?id=0-9-378
+
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
